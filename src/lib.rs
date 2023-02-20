@@ -2,7 +2,7 @@ use std::any::Any;
 
 pub trait Event{
     fn as_any(&self) -> &dyn Any;
-    fn event_id() -> String;
+    // fn event_id() -> String;
     fn event_id_this(&self) -> String;
 }
 
@@ -14,8 +14,11 @@ macro_rules! implement_event {
     ) => {
         impl Event for $struct {
             fn as_any(&self) -> &dyn Any{ self }
-            fn event_id() -> String{ String::from($event_id) }
             fn event_id_this(&self) -> String{ String::from($event_id) }
+        }
+
+        impl $struct {
+            fn event_id() -> String{ String::from($event_id) }
         }
     }
 }
